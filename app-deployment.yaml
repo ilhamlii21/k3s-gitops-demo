@@ -11,3 +11,24 @@ spec:
       limits:
         cpu: 100m
         memory: 128Mi
+
+---
+apiVersion: autoscaling/2.2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: demo-rollout-hpa
+  namespace: default
+spec:
+  scaleTargetRef:
+    apiVersion: argoproj.io/v1alpha1
+    kind: Rollout
+    name: demo-rollout
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 50
