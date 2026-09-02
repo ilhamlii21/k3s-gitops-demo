@@ -13,7 +13,7 @@ spec:
         memory: 128Mi
 
 ---
-apiVersion: autoscaling/2.2
+apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: demo-rollout-hpa
