@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: web-app
-        image: argoproj/rollouts-demo:blue # Versi awal (Blue)
+        image: argoproj/rollouts-demo:red # Versi awal (Blue)
         ports:
         - containerPort: 8080
 ---
