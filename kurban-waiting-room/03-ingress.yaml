@@ -3,12 +3,9 @@ kind: Ingress
 metadata:
   name: kurban-ingress
   annotations:
-    kubernetes.io/ingress.class: "nginx"
-    # Batasi request maksimal 5 request per detik per IP
-    nginx.ingress.kubernetes.io/limit-rps: "5"
-    # Saat limit terlampaui, alihkan (burst limit) atau beri respon rate-limit
-    nginx.ingress.kubernetes.io/limit-burst-multiplier: "1"
+    kubernetes.io/ingress.class: "traefik"
 spec:
+  ingressClassName: traefik
   rules:
   - http:
       paths:
