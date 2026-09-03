@@ -4,6 +4,10 @@ metadata:
   name: kurban-ingress
   annotations:
     kubernetes.io/ingress.class: "traefik"
+    # Anotasi Rate Limiting Traefik (Maksimal 5 req/s per IP)
+    traefik.ingress.kubernetes.io/rate-limit: |
+      average: 5
+      burst: 1
 spec:
   ingressClassName: traefik
   rules:
