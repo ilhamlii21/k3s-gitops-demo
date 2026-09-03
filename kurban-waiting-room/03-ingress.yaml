@@ -4,10 +4,8 @@ metadata:
   name: kurban-ingress
   annotations:
     kubernetes.io/ingress.class: "traefik"
-    # Anotasi Rate Limiting Traefik (Maksimal 5 req/s per IP)
-    traefik.ingress.kubernetes.io/rate-limit: |
-      average: 5
-      burst: 1
+    # Panggil middleware rate-limit yang kita buat di 04-middleware.yaml
+    traefik.ingress.kubernetes.io/router.middlewares: default-kurban-ratelimit@kubernetescrd
 spec:
   ingressClassName: traefik
   rules:
