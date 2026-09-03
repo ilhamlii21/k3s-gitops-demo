@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kurban-app
+  labels:
+    app: kurban-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: kurban-app
+  template:
+    metadata:
+      labels:
+        app: kurban-app
+    spec:
+      containers:
+      - name: web
+        image: nginx:alpine
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: "150m"
+            memory: "128Mi"
+        # Kita inject HTML dummy sederhana untuk merepresentasikan Halaman Utama dan Waiting Room
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/sh", "-c", "echo '<h1>Selamat Datang di Pemesanan Tiket Kurban!</h1><p>Silahkan pilih Kambing/Sapi.</p>' > /usr/share/nginx/html/index.html && echo '<h1>Virtual Waiting Room Kurban</h1><p>Trafik padat! Anda dalam antrean. Mohon tunggu sebentar...</p>' > /usr/share/nginx/html/waiting-room.html"]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kurban-app-svc
+spec:
+  selector:
+    app: kurban-app
+  ports:
+  - port: 80
+    targetPort: 80
